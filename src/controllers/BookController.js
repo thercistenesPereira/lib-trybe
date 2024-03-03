@@ -10,7 +10,7 @@ const getAll = async(req, res) => {
   } else {
     books = await BookService.getAll();
   }
-  
+
   res.status(200).json({books});
 }
 
@@ -24,17 +24,17 @@ const getById = async(req, res) => {
 };
 
 const create = async (req, res) => {
-  const { title, author, pageQuantity } = req.body;
-  const newBook = await BookService.create({ title, author, pageQuantity });
+  const { title, author, pageQuantity, publisher } = req.body;
+  const newBook = await BookService.create({ title, author, pageQuantity, publisher });
   
   res.status(201).json(newBook);
 }
 
 const update = async (req, res) => {
   const { id } = req.params;
-  const { title, author, pageQuantity } = req.body;
+  const { title, author, pageQuantity, publisher } = req.body;
 
-  const updatedBook = await BookService.update(id, { title, author, pageQuantity });
+  const updatedBook = await BookService.update(id, { title, author, pageQuantity, publisher });
 
   if (!updatedBook) return res.status(404).json({ message: 'Book not found' });
 

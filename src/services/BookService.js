@@ -12,14 +12,14 @@ const getById = async (id) => {
   return book;
 };
 
-const create = async (objBook) => {
-  const newBook = await Book.create(objBook);
+const create = async ({ title, author, pageQuantity, publisher }) => {
+  const newBook = await Book.create({ title, author, pageQuantity, publisher });
   return newBook;
 };
 
-const update = async (id, objBook) => {
+const update = async (id, { title, author, pageQuantity, publisher }) => {
   const [updated] = await Book.update(
-    objBook,
+    { title, author, pageQuantity, publisher },
     { where: { id } }
   );
   return updated;
@@ -31,7 +31,10 @@ const remove = async (id) => {
 };
 
 const getByAuthor = async (author) => {
-  const books = await Book.findAll({ where: { author } });
+  const books = await Book.findAll({
+    where: { author },
+    order: [['title', 'ASC']],
+  });
   return books;
 }
 
